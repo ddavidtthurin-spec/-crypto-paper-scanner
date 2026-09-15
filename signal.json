@@ -1,0 +1,11 @@
+{
+  "updated": "2026-09-15T08:16:02.621664+00:00",
+  "status": "no_action",
+  "command": null,
+  "stop_moves": [],
+  "portfolio": {
+    "cash_sek": 10000.0,
+    "total_value_sek": 10000.0,
+    "positions": []
+  }
+}
