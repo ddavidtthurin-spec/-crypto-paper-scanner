@@ -1,11 +1,69 @@
-name: Test workflow
+name: Hourly paper scan
 
 on:
+  schedule:
+    - cron: "7 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: hourly-paper-scan
+  cancel-in-progress: false
+
 jobs:
-  test:
+  scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
-      - name: Test
-        run: echo "Workflow fungerar"
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run validated paper scanner
+        run: python run_scanner.py
+
+      - name: Validate outputs
+        run: |
+          python - <<'PY'
+          import json
+
+          for name in (
+              "crypto_daytrade_state.json",
+              "scan_live.json",
+              "signal.json",
+          ):
+              with open(name, encoding="utf-8") as fh:
+                  json.load(fh)
+
+          with open("crypto_daytrade_state.json", encoding="utf-8") as fh:
+              state = json.load(fh)
+
+          assert all(
+              key in state
+              for key in (
+                  "struct80",
+                  "candidate_book",
+                  "expectancy_log",
+              )
+          )
+          PY
+
+      - name: Notify David of manual action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python github_notify.py
+
+      - name: Save validated state
+        run: |
+          git config user.name "paper-scan-bot"
+          git config user.email "paper-scan-bot@users.noreply.github.com"
+          git add crypto_daytrade_state.json scan_live.json signal.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: hourly paper scan"
+          git push
