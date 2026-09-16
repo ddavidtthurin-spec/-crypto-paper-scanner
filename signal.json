@@ -1,19 +1,7 @@
 {
-  "updated": "2026-09-16T20:00:49.301991+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "ARB",
-    "frac": 1.0,
-    "exit": 0.16099,
-    "anledning": "struktur_dod ISOLATED_PUMP q-1.0",
-    "paper_price": 0.16099,
-    "size_sek": 4500.0,
-    "size_pct": 45.0,
-    "stop": 0.148634,
-    "tp1": 0.17597,
-    "tp2": 0.190797
-  },
+  "updated": "2026-09-16T22:52:28.632842+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10137.996158770806,
