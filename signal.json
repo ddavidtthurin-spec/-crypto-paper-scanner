@@ -1,11 +1,55 @@
 {
-  "updated": "2026-09-16T11:23:21.367966+00:00",
-  "status": "no_action",
-  "command": null,
+  "updated": "2026-09-16T16:45:04.822497+00:00",
+  "status": "action",
+  "command": {
+    "op": "KÖP",
+    "s": "ARB",
+    "size_pct": 45.0,
+    "entry": 0.1562,
+    "stop": 0.143844,
+    "tp1": 0.17597,
+    "tp2": 0.190797,
+    "anledning": "RANGE_BREAK_HOLD q=8",
+    "size_sek": 4500.0,
+    "paper_price": 0.1562
+  },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 10000.0,
-    "total_value_sek": 10000.0,
-    "positions": []
+    "cash_sek": 5500.0,
+    "total_value_sek": 9997.7,
+    "positions": [
+      {
+        "s": "ARB",
+        "entry": 0.1562,
+        "stop": 0.143844,
+        "tp1": 0.17597,
+        "tp2": 0.190797,
+        "size_pct": 45.0,
+        "size_pct_locked": 45.0,
+        "size_pct_cmd": 45.0,
+        "mtm_weight_pct": 44.99,
+        "qty": 28809.21895006402,
+        "alloc_sek": 4500.0,
+        "opened": "2026-09-16T18:45:00.523121+02:00",
+        "mark": 0.15612,
+        "fills": 1,
+        "legs": [
+          {
+            "t": "2026-09-16T18:45:00.523121+02:00",
+            "op": "KÖP",
+            "px": 0.1562,
+            "qty": 28809.21895006402,
+            "alloc_sek": 4500.0,
+            "size_pct": 45.0
+          }
+        ],
+        "value_sek": 4497.7,
+        "display": "ARB fills=1 size_lock 45.0% @ 0.1562 mtm_vikt 44.99% (mtm_vikt är INTE extra köp)",
+        "mfe_px": 0.1562,
+        "r_now": -0.006,
+        "r_mfe": 0.0,
+        "hours_held": 0.0
+      }
+    ]
   }
 }
