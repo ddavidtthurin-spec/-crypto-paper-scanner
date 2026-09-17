@@ -1,18 +1,11 @@
 {
-  "updated": "2026-09-17T13:22:13.280825+00:00",
-  "status": "action",
+  "updated": "2026-09-17T18:08:46.785121+00:00",
+  "status": "no_action",
   "command": null,
-  "stop_moves": [
-    {
-      "s": "SUI",
-      "from": 0.6989,
-      "to": 0.718775,
-      "mark": 0.7273
-    }
-  ],
+  "stop_moves": [],
   "portfolio": {
     "cash_sek": 979.1861587708054,
-    "total_value_sek": 10165.66,
+    "total_value_sek": 10190.6,
     "positions": [
       {
         "s": "SUI",
@@ -23,11 +16,11 @@
         "size_pct": 45.62,
         "size_pct_locked": 45.62,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 45.85,
+        "mtm_weight_pct": 46.13,
         "qty": 6409.244169710593,
         "alloc_sek": 4562.1,
         "opened": "2026-09-17T03:18:59.445870+02:00",
-        "mark": 0.7273,
+        "mark": 0.7335,
         "fills": 1,
         "legs": [
           {
@@ -39,12 +32,12 @@
             "size_pct": 45.62
           }
         ],
-        "value_sek": 4661.44,
-        "display": "SUI fills=1 size_lock 45.62% @ 0.7118 mtm_vikt 45.85% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.7273,
-        "r_now": 1.202,
-        "r_mfe": 1.202,
-        "hours_held": 12.05
+        "value_sek": 4701.18,
+        "display": "SUI fills=1 size_lock 45.62% @ 0.7118 mtm_vikt 46.13% (mtm_vikt är INTE extra köp)",
+        "mfe_px": 0.7335,
+        "r_now": 0.884,
+        "r_mfe": 0.884,
+        "hours_held": 16.83
       },
       {
         "s": "WLFI",
@@ -55,11 +48,11 @@
         "size_pct": 45.97,
         "size_pct_locked": 45.97,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 44.51,
+        "mtm_weight_pct": 44.26,
         "qty": 77910.33898305085,
         "alloc_sek": 4596.71,
         "opened": "2026-09-17T09:34:09.089588+02:00",
-        "mark": 0.05808,
+        "mark": 0.05789,
         "fills": 1,
         "legs": [
           {
@@ -71,12 +64,12 @@
             "size_pct": 45.97
           }
         ],
-        "value_sek": 4525.03,
-        "display": "WLFI fills=1 size_lock 45.97% @ 0.059 mtm_vikt 44.51% (mtm_vikt är INTE extra köp)",
+        "value_sek": 4510.23,
+        "display": "WLFI fills=1 size_lock 45.97% @ 0.059 mtm_vikt 44.26% (mtm_vikt är INTE extra köp)",
         "mfe_px": 0.05905,
-        "r_now": -0.784,
+        "r_now": -0.945,
         "r_mfe": 0.043,
-        "hours_held": 5.8
+        "hours_held": 10.58
       }
     ]
   }
