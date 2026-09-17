@@ -1,11 +1,23 @@
 {
-  "updated": "2026-09-17T18:08:46.785121+00:00",
-  "status": "no_action",
-  "command": null,
+  "updated": "2026-09-17T22:05:40.446903+00:00",
+  "status": "action",
+  "command": {
+    "op": "SÄLJ",
+    "s": "WLFI",
+    "frac": 1.0,
+    "exit": 0.05815,
+    "anledning": "time_decay 14.5h r-0.72 HL_NO_PULLBACK",
+    "paper_price": 0.05815,
+    "size_sek": 4596.71,
+    "size_pct": 45.97,
+    "stop": 0.057826,
+    "tp1": 0.060958,
+    "tp2": 0.062427
+  },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 979.1861587708054,
-    "total_value_sek": 10190.6,
+    "cash_sek": 5509.672370635212,
+    "total_value_sek": 10208.93,
     "positions": [
       {
         "s": "SUI",
@@ -16,11 +28,11 @@
         "size_pct": 45.62,
         "size_pct_locked": 45.62,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 46.13,
+        "mtm_weight_pct": 46.03,
         "qty": 6409.244169710593,
         "alloc_sek": 4562.1,
         "opened": "2026-09-17T03:18:59.445870+02:00",
-        "mark": 0.7335,
+        "mark": 0.7332,
         "fills": 1,
         "legs": [
           {
@@ -32,44 +44,12 @@
             "size_pct": 45.62
           }
         ],
-        "value_sek": 4701.18,
-        "display": "SUI fills=1 size_lock 45.62% @ 0.7118 mtm_vikt 46.13% (mtm_vikt är INTE extra köp)",
+        "value_sek": 4699.26,
+        "display": "SUI fills=1 size_lock 45.62% @ 0.7118 mtm_vikt 46.03% (mtm_vikt är INTE extra köp)",
         "mfe_px": 0.7335,
-        "r_now": 0.884,
-        "r_mfe": 0.884,
-        "hours_held": 16.83
-      },
-      {
-        "s": "WLFI",
-        "entry": 0.059,
-        "stop": 0.057826,
-        "tp1": 0.060958,
-        "tp2": 0.062427,
-        "size_pct": 45.97,
-        "size_pct_locked": 45.97,
-        "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 44.26,
-        "qty": 77910.33898305085,
-        "alloc_sek": 4596.71,
-        "opened": "2026-09-17T09:34:09.089588+02:00",
-        "mark": 0.05789,
-        "fills": 1,
-        "legs": [
-          {
-            "t": "2026-09-17T09:34:09.089588+02:00",
-            "op": "KÖP",
-            "px": 0.059,
-            "qty": 77910.33898305085,
-            "alloc_sek": 4596.71,
-            "size_pct": 45.97
-          }
-        ],
-        "value_sek": 4510.23,
-        "display": "WLFI fills=1 size_lock 45.97% @ 0.059 mtm_vikt 44.26% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.05905,
-        "r_now": -0.945,
-        "r_mfe": 0.043,
-        "hours_held": 10.58
+        "r_now": 0.879,
+        "r_mfe": 0.891,
+        "hours_held": 20.78
       }
     ]
   }
