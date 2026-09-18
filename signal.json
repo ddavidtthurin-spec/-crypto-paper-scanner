@@ -1,22 +1,11 @@
 {
-  "updated": "2026-09-18T14:56:06.090229+00:00",
-  "status": "action",
-  "command": {
-    "op": "KÖP",
-    "s": "BTC",
-    "size_pct": 45.0,
-    "entry": 80889.4,
-    "stop": 79767.1,
-    "tp1": 82685.1,
-    "tp2": 84031.9,
-    "anledning": "RANGE_BREAK_HOLD q=9",
-    "size_sek": 4500.0,
-    "paper_price": 80889.4
-  },
+  "updated": "2026-09-18T18:19:11.529180+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 5844.199541335901,
-    "total_value_sek": 10627.61,
+    "total_value_sek": 10625.82,
     "positions": [
       {
         "s": "BTC",
@@ -27,11 +16,11 @@
         "size_pct": 47.82,
         "size_pct_locked": 47.82,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 45.01,
+        "mtm_weight_pct": 45.0,
         "qty": 0.059112936923750206,
         "alloc_sek": 4781.61,
         "opened": "2026-09-18T16:56:05.400368+02:00",
-        "mark": 80919.9,
+        "mark": 80889.6,
         "fills": 1,
         "legs": [
           {
@@ -43,12 +32,12 @@
             "size_pct": 47.82
           }
         ],
-        "value_sek": 4783.41,
-        "display": "BTC fills=1 size_lock 47.82% @ 80889.4 mtm_vikt 45.01% (mtm_vikt är INTE extra köp)",
+        "value_sek": 4781.62,
+        "display": "BTC fills=1 size_lock 47.82% @ 80889.4 mtm_vikt 45.0% (mtm_vikt är INTE extra köp)",
         "mfe_px": 80919.9,
-        "r_now": 0.027,
-        "r_mfe": 0.027,
-        "hours_held": 0.0
+        "r_now": 0.0,
+        "r_mfe": 0.028,
+        "hours_held": 3.39
       }
     ]
   }
