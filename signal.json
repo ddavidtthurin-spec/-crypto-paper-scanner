@@ -1,23 +1,55 @@
 {
-  "updated": "2026-09-18T11:04:32.790984+00:00",
+  "updated": "2026-09-18T14:56:06.090229+00:00",
   "status": "action",
   "command": {
-    "op": "SÄLJ",
-    "s": "BNB",
-    "frac": 1.0,
-    "exit": 753.3,
-    "anledning": "struktur_dod FAILED_BREAK_TRAP q4.0",
-    "paper_price": 753.3,
-    "size_sek": 4618.53,
-    "size_pct": 46.19,
-    "stop": 740.62,
-    "tp1": 759.28,
-    "tp2": 774.57
+    "op": "KÖP",
+    "s": "BTC",
+    "size_pct": 45.0,
+    "entry": 80889.4,
+    "stop": 79767.1,
+    "tp1": 82685.1,
+    "tp2": 84031.9,
+    "anledning": "RANGE_BREAK_HOLD q=9",
+    "size_sek": 4500.0,
+    "paper_price": 80889.4
   },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 10625.8095413359,
-    "total_value_sek": 10625.81,
-    "positions": []
+    "cash_sek": 5844.199541335901,
+    "total_value_sek": 10627.61,
+    "positions": [
+      {
+        "s": "BTC",
+        "entry": 80889.4,
+        "stop": 79797.6,
+        "tp1": 82685.1,
+        "tp2": 84031.9,
+        "size_pct": 47.82,
+        "size_pct_locked": 47.82,
+        "size_pct_cmd": 45.0,
+        "mtm_weight_pct": 45.01,
+        "qty": 0.059112936923750206,
+        "alloc_sek": 4781.61,
+        "opened": "2026-09-18T16:56:05.400368+02:00",
+        "mark": 80919.9,
+        "fills": 1,
+        "legs": [
+          {
+            "t": "2026-09-18T16:56:05.400368+02:00",
+            "op": "KÖP",
+            "px": 80889.4,
+            "qty": 0.059112936923750206,
+            "alloc_sek": 4781.61,
+            "size_pct": 47.82
+          }
+        ],
+        "value_sek": 4783.41,
+        "display": "BTC fills=1 size_lock 47.82% @ 80889.4 mtm_vikt 45.01% (mtm_vikt är INTE extra köp)",
+        "mfe_px": 80919.9,
+        "r_now": 0.027,
+        "r_mfe": 0.027,
+        "hours_held": 0.0
+      }
+    ]
   }
 }
