@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-18T18:19:11.529180+00:00",
+  "updated": "2026-09-18T21:35:52.175116+00:00",
   "status": "no_action",
   "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 5844.199541335901,
-    "total_value_sek": 10625.82,
+    "total_value_sek": 10642.52,
     "positions": [
       {
         "s": "BTC",
@@ -16,11 +16,11 @@
         "size_pct": 47.82,
         "size_pct_locked": 47.82,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 45.0,
+        "mtm_weight_pct": 45.09,
         "qty": 0.059112936923750206,
         "alloc_sek": 4781.61,
         "opened": "2026-09-18T16:56:05.400368+02:00",
-        "mark": 80889.6,
+        "mark": 81172.1,
         "fills": 1,
         "legs": [
           {
@@ -32,12 +32,12 @@
             "size_pct": 47.82
           }
         ],
-        "value_sek": 4781.62,
-        "display": "BTC fills=1 size_lock 47.82% @ 80889.4 mtm_vikt 45.0% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 80919.9,
-        "r_now": 0.0,
-        "r_mfe": 0.028,
-        "hours_held": 3.39
+        "value_sek": 4798.32,
+        "display": "BTC fills=1 size_lock 47.82% @ 80889.4 mtm_vikt 45.09% (mtm_vikt är INTE extra köp)",
+        "mfe_px": 81172.1,
+        "r_now": 0.259,
+        "r_mfe": 0.259,
+        "hours_held": 6.66
       }
     ]
   }
