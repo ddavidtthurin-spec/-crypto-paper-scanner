@@ -1,19 +1,7 @@
 {
-  "updated": "2026-09-19T05:44:20.445689+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "BTC",
-    "frac": 1.0,
-    "exit": 81050.9,
-    "anledning": "struktur_dod FAILED_BREAK_TRAP q3.0",
-    "paper_price": 81050.9,
-    "size_sek": 4781.61,
-    "size_pct": 47.82,
-    "stop": 79797.6,
-    "tp1": 82685.1,
-    "tp2": 84031.9
-  },
+  "updated": "2026-09-19T10:48:37.421972+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10635.356280649086,
