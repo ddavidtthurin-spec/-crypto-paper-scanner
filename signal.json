@@ -1,55 +1,25 @@
 {
-  "updated": "2026-09-19T17:57:00.586061+00:00",
+  "updated": "2026-09-19T20:01:54.831325+00:00",
   "status": "action",
   "command": {
-    "op": "KÖP",
+    "op": "SÄLJ",
     "s": "HBAR",
-    "size_pct": 45.0,
-    "entry": 0.08177,
-    "stop": 0.079117,
+    "frac": 1.0,
+    "exit": 0.08228,
+    "anledning": "struktur_dod 1H_FAILED_HOLD q4.0",
+    "paper_price": 0.08217889,
+    "size_sek": 4785.91,
+    "size_pct": 47.86,
+    "stop": 0.079574,
     "tp1": 0.086015,
     "tp2": 0.089198,
-    "anledning": "RANGE_BREAK_HOLD q=8",
-    "size_sek": 4500.0,
-    "paper_price": 0.08177
+    "signal_price": 0.08222,
+    "fee_sek": 4.8098
   },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 5849.4462806490865,
-    "total_value_sek": 10634.19,
-    "positions": [
-      {
-        "s": "HBAR",
-        "entry": 0.08177,
-        "stop": 0.079117,
-        "tp1": 0.086015,
-        "tp2": 0.089198,
-        "size_pct": 47.86,
-        "size_pct_locked": 47.86,
-        "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 44.99,
-        "qty": 58528.92258774612,
-        "alloc_sek": 4785.91,
-        "opened": "2026-09-19T19:57:00.130682+02:00",
-        "mark": 0.08175,
-        "fills": 1,
-        "legs": [
-          {
-            "t": "2026-09-19T19:57:00.130682+02:00",
-            "op": "KÖP",
-            "px": 0.08177,
-            "qty": 58528.92258774612,
-            "alloc_sek": 4785.91,
-            "size_pct": 47.86
-          }
-        ],
-        "value_sek": 4784.74,
-        "display": "HBAR fills=1 size_lock 47.86% @ 0.08177 mtm_vikt 44.99% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.08177,
-        "r_now": -0.008,
-        "r_mfe": 0.0,
-        "hours_held": 0.0
-      }
-    ]
+    "cash_sek": 10654.478329914833,
+    "total_value_sek": 10654.48,
+    "positions": []
   }
 }
