@@ -1,6 +1,12 @@
 name: 30-minute paper scan
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "crypto_daytrade_state.json"
+      - "scan_live.json"
+      - "signal.json"
   schedule:
     # Off the top of the hour to reduce GitHub's documented peak-time delays.
     - cron: "13,43 * * * *"
