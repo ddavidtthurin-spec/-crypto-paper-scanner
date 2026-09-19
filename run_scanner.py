@@ -61,8 +61,12 @@ def choose_command(state, out):
         }
     if int(rotation.get("slots_free") or 0) <= 0:
         return None
+    if state.get("regime") == "RISK_OFF" or state.get("flow") == "RISK_OFF":
+        return None
+    held = {p.get("s") for p in (state.get("positions") or []) if p.get("s")}
     setups = [
         row for row in (out.get("a_setups") or [])
+        if row.get("s") not in held
         if row.get("why") == "RANGE_BREAK_HOLD"
         and isinstance(row.get("plan"), dict)
         and all(row["plan"].get(k) is not None for k in ("entry", "stop", "tp1", "tp2"))
@@ -71,8 +75,15 @@ def choose_command(state, out):
         return None
     setups.sort(key=lambda row: (row.get("q") or 0, row.get("volr4") or 0), reverse=True)
     best, plan = setups[0], setups[0]["plan"]
+    risk_pct = float(plan.get("risk_pct") or 0)
+    if risk_pct <= 0:
+        return None
+    # Risk 1.25% of equity per trade, capped at 45% gross exposure.
+    size_pct = round(min(45.0, 125.0 / risk_pct), 2)
+    if size_pct < 15.0:
+        return None
     return {
-        "op": "KÖP", "s": best["s"], "size_pct": 45.0,
+        "op": "KÖP", "s": best["s"], "size_pct": size_pct,
         "entry": plan["entry"], "stop": plan["stop"],
         "tp1": plan["tp1"], "tp2": plan["tp2"],
         "anledning": f"RANGE_BREAK_HOLD q={best.get('q')}",
@@ -84,10 +95,11 @@ def enrich_command(command, state):
     if not command:
         return None
     command = dict(command)
-    start_cash = float(state.get("start_kassa_sek") or 10000)
+    equity = float(state.get("total_value_sek") or state.get("start_kassa_sek") or 10000)
     if command.get("op") == "KÖP":
-        command["size_sek"] = round(start_cash * 0.45, 2)
-        command["size_pct"] = 45.0
+        size_pct = float(command.get("size_pct") or 45.0)
+        command["size_sek"] = round(equity * size_pct / 100.0, 2)
+        command["size_pct"] = size_pct
         command["paper_price"] = command.get("entry")
         return command
     if command.get("op") == "SÄLJ":
@@ -112,6 +124,15 @@ def main():
         state["pending_command"] = command
         write_json(STATE, state)
         state, out = run_scan()
+        fills = [f for f in (state.get("fills_applied") or []) if f.get("fill")]
+        matching = next((f for f in fills if f.get("s") == command.get("s") and f.get("fill") == command.get("op")), None)
+        if not matching:
+            command = None
+        else:
+            command["paper_price"] = matching.get("price") or command.get("paper_price")
+            command["signal_price"] = matching.get("signal_price")
+            command["size_sek"] = matching.get("alloc") or command.get("size_sek")
+            command["fee_sek"] = matching.get("fee")
 
     sold = command.get("s") if command and command.get("op") == "SÄLJ" else None
     stop_moves = []

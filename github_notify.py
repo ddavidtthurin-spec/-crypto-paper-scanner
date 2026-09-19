@@ -23,8 +23,10 @@ lines = [
 ]
 if cmd:
     lines += [
+        f"- **Signalpris:** {cmd.get('signal_price')}",
         f"- **Papperspris:** {cmd.get('paper_price')}",
         f"- **Storlek:** {cmd.get('size_sek')} SEK ({cmd.get('size_pct')} %)",
+        f"- **Modellerad avgift:** {cmd.get('fee_sek')} SEK",
         f"- **Stoploss:** {cmd.get('stop')}",
         f"- **TP1 / TP2:** {cmd.get('tp1')} / {cmd.get('tp2')}",
         f"- **Anledning:** {cmd.get('anledning')}",

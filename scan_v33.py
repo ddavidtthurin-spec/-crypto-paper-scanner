@@ -9,6 +9,7 @@ Hold = completed candle only. Learning never buys.
 import atexit, json, subprocess, time, datetime, statistics, os, shutil, tempfile
 from pathlib import Path
 from zoneinfo import ZoneInfo
+from paper_execution import apply_pending_fills as execute_pending_fills
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 DATA_DIR = Path(os.environ.get("SCANNER_DATA_DIR", Path(__file__).resolve().parent))
@@ -175,6 +176,49 @@ def atr_n(completed, n=14):
         return None
     return sum(use) / len(use)
 
+def ema_series(values, period):
+    if not values:
+        return []
+    alpha = 2.0 / (period + 1.0)
+    out = [float(values[0])]
+    for value in values[1:]:
+        out.append(alpha * float(value) + (1.0 - alpha) * out[-1])
+    return out
+
+def rsi_n(values, n=14):
+    if len(values) < n + 1:
+        return None
+    deltas = [values[i] - values[i - 1] for i in range(1, len(values))]
+    gains = [max(d, 0.0) for d in deltas[-n:]]
+    losses = [max(-d, 0.0) for d in deltas[-n:]]
+    avg_gain = sum(gains) / n
+    avg_loss = sum(losses) / n
+    if avg_loss == 0:
+        return 100.0
+    return 100.0 - 100.0 / (1.0 + avg_gain / avg_loss)
+
+def adx_n(completed, n=14):
+    if len(completed) < n + 2:
+        return None
+    trs, plus_dm, minus_dm = [], [], []
+    for i in range(1, len(completed)):
+        cur, prev = completed[i], completed[i - 1]
+        up, down = cur["h"] - prev["h"], prev["l"] - cur["l"]
+        plus_dm.append(up if up > down and up > 0 else 0.0)
+        minus_dm.append(down if down > up and down > 0 else 0.0)
+        trs.append(max(cur["h"] - cur["l"], abs(cur["h"] - prev["c"]), abs(cur["l"] - prev["c"])))
+    dx = []
+    for end in range(n, len(trs) + 1):
+        tr = sum(trs[end - n:end])
+        if tr <= 0:
+            continue
+        plus = 100.0 * sum(plus_dm[end - n:end]) / tr
+        minus = 100.0 * sum(minus_dm[end - n:end]) / tr
+        denom = plus + minus
+        if denom > 0:
+            dx.append(100.0 * abs(plus - minus) / denom)
+    return (sum(dx[-n:]) / len(dx[-n:])) if dx else None
+
 def candle_shape(bar):
     h, l, o, c = bar["h"], bar["l"], bar["o"], bar["c"]
     rng = h - l
@@ -220,6 +264,8 @@ def empty_st(n=0, forming=None):
         "up_wick": None, "dn_wick": None, "close_loc": None,
         "hh": False, "hl_swings": False, "n_sh": 0, "n_sl": 0,
         "weak_hold": False, "thin_vol": False,
+        "ema20": None, "ema50": None, "ema20_slope": None,
+        "trend_up": False, "rsi14": None, "adx14": None,
     }
 
 def classify_tf(cs, min_n=12):
@@ -257,6 +303,17 @@ def classify_tf(cs, min_n=12):
     break_pct = None if rh <= 0 else 100.0 * (close / rh - 1)
     shp = candle_shape(last)
     atr = atr_n(completed, 14)
+    closes_all = [c["c"] for c in completed]
+    ema20s = ema_series(closes_all, 20)
+    ema50s = ema_series(closes_all, 50)
+    ema20 = ema20s[-1] if ema20s else None
+    ema50 = ema50s[-1] if ema50s else None
+    ema20_slope = None
+    if len(ema20s) >= 4 and ema20s[-4]:
+        ema20_slope = 100.0 * (ema20s[-1] / ema20s[-4] - 1.0)
+    rsi14 = rsi_n(closes_all, 14)
+    adx14 = adx_n(completed, 14)
+    trend_up = bool(ema20 and ema50 and close > ema20 > ema50 and (ema20_slope or 0) > 0)
     vols = [c["v"] for c in completed[-21:-1] if c.get("v")]
     vol_sma = (sum(vols) / len(vols)) if vols else None
     vol_ratio = None if not vol_sma else round(last["v"] / vol_sma, 2)
@@ -334,6 +391,12 @@ def classify_tf(cs, min_n=12):
         "n_sl": len(sl_ok),
         "weak_hold": weak_hold,
         "thin_vol": thin_vol,
+        "ema20": None if ema20 is None else round(ema20, 8),
+        "ema50": None if ema50 is None else round(ema50, 8),
+        "ema20_slope": None if ema20_slope is None else round(ema20_slope, 3),
+        "trend_up": trend_up,
+        "rsi14": None if rsi14 is None else round(rsi14, 2),
+        "adx14": None if adx14 is None else round(adx14, 2),
     }
 
 print("load prev state")
@@ -481,6 +544,10 @@ for i, r in enumerate(top80):
         "hlsw4": st.get("hl_swings"),
         "weak_hold": st.get("weak_hold"),
         "thin_vol": st.get("thin_vol"),
+        "trend4": st.get("trend_up"),
+        "ema20_4": st.get("ema20"), "ema50_4": st.get("ema50"),
+        "ema20_slope4": st.get("ema20_slope"),
+        "rsi4": st.get("rsi14"), "adx4": st.get("adx14"),
     }
     struct.append(item)
     if i % 10 == 9:
@@ -535,6 +602,9 @@ for x in cands:
     x["forming1"] = st1["forming"]
     x["volr1"] = st1.get("vol_ratio")
     x["cloc1"] = st1.get("close_loc")
+    x["trend1"] = st1.get("trend_up")
+    x["rsi1"] = st1.get("rsi14")
+    x["adx1"] = st1.get("adx14")
     if not st1["ok"]:
         fail1.append(x["s"])
     if x["why"] == "RANGE_BREAK_HOLD" and st1["fb"]:
@@ -570,6 +640,8 @@ for x in confirm15_names:
     x["hl15"] = st15["hl"]
     x["forming15"] = st15["forming"]
     x["volr15"] = st15.get("vol_ratio")
+    x["trend15"] = st15.get("trend_up")
+    x["rsi15"] = st15.get("rsi14")
     if x["why"] == "RANGE_BREAK_HOLD" and st15["fb"] and not st15["bh"]:
         x["why"] = "15M_FAILED_HOLD"
     if x["why"] == "RANGE_BREAK_HOLD" and st15.get("thin_vol") and not st15["bh"]:
@@ -1029,6 +1101,24 @@ def quality(x):
         q += 1
     if x.get("hh4"):
         q += 1
+    if x.get("trend4"):
+        q += 1
+    else:
+        q -= 2
+    if x.get("trend1"):
+        q += 1
+    elif x.get("trend1") is False:
+        q -= 1
+    rsi4 = fnum(x.get("rsi4"))
+    if rsi4 is not None and 52 <= rsi4 <= 74:
+        q += 1
+    elif rsi4 is not None and (rsi4 < 45 or rsi4 > 82):
+        q -= 2
+    adx4 = fnum(x.get("adx4"))
+    if adx4 is not None and adx4 >= 20:
+        q += 1
+    elif adx4 is not None and adx4 < 13:
+        q -= 1
     if x.get("volr4") is not None and x["volr4"] >= 1.3:
         q += 1
     if x.get("vol_delta") is not None and x["vol_delta"] > 5:
@@ -1095,7 +1185,15 @@ for x in struct:
     b["q_streak"] = streak
     book[x["s"]] = b
 
-a_setups = [x for x in struct if x["why"] == "RANGE_BREAK_HOLD"]
+a_setups = [
+    x for x in struct
+    if x["why"] == "RANGE_BREAK_HOLD"
+    and x.get("trend4") is True
+    and x.get("trend1") is True
+    and 50 <= (fnum(x.get("rsi4")) or 0) <= 78
+    and (fnum(x.get("adx4")) or 0) >= 15
+    and (x.get("q") or 0) >= 7
+]
 pinned = set(x["s"] for x in a_setups) | set(
     p.get("s") for p in ((prev.get("positions") if isinstance(prev, dict) else None) or []) if p.get("s")
 )
@@ -1272,7 +1370,7 @@ for name in keep_names:
 
 out = {
     "ts": ts,
-    "engine": "v3.3.3-depth",
+    "engine": "v3.4.0-riskcost-ta",
     "btc": {"p": okx_btc, "c": btc_chg, "pr": btc["pr"], "funding": btc_funding, "oi_usd": oi_usd,
             "why": btc_why, "d1_bh": btc_1d.get("bh"), "d1_hl": btc_1d.get("hl")},
     "sanity": {"raw": sanity, "flag": flag, "median": med},
@@ -1286,6 +1384,8 @@ out = {
     "cands_1h": [x["s"] for x in cands],
     "a_setups": [{"s": x["s"], "p": x["p"], "c": x["c"], "pr": x["pr"], "rs": x["rs"], "why": x["why"],
                   "rh4": x["rh4"], "q": x["q"], "atr4": x.get("atr4"), "volr4": x.get("volr4"),
+                  "trend4": x.get("trend4"), "trend1": x.get("trend1"),
+                  "rsi4": x.get("rsi4"), "adx4": x.get("adx4"),
                   "plan": x.get("plan"),
                   "improving": (book.get(x["s"]) or {}).get("improving")}
                  for x in a_setups],
@@ -1318,6 +1418,11 @@ out = {
         "atr4": x.get("atr4"), "volr4": x.get("volr4"),
         "wick_up4": x.get("wick_up4"), "cloc4": x.get("cloc4"),
         "hh4": x.get("hh4"), "hlsw4": x.get("hlsw4"),
+        "trend4": x.get("trend4"), "trend1": x.get("trend1"),
+        "ema20_4": x.get("ema20_4"), "ema50_4": x.get("ema50_4"),
+        "ema20_slope4": x.get("ema20_slope4"),
+        "rsi4": x.get("rsi4"), "rsi1": x.get("rsi1"),
+        "adx4": x.get("adx4"), "adx1": x.get("adx1"),
     } for x in struct],
     "candidate_book": book,
     "regime": regime,
@@ -1338,7 +1443,7 @@ state["positions"] = list(prev.get("positions") or [])
 state["start_kassa_sek"] = prev.get("start_kassa_sek", 10000)
 if not isinstance(state.get("closed_trades"), list):
     state["closed_trades"] = []
-state = apply_pending_fills(state, price_now, ts)
+state = execute_pending_fills(state, price_now, ts)
 mtm = float(state["cash_sek"] or 0)
 for pos in state["positions"]:
     px = price_now.get(pos.get("s"))
@@ -1379,6 +1484,19 @@ for pos in state["positions"]:
     )
 state["total_pnl_sek"] = round(mtm - start, 2)
 state["total_pnl_pct"] = round(100.0 * (mtm / start - 1), 3) if start else 0
+epochs = state.get("strategy_epochs") if isinstance(state.get("strategy_epochs"), dict) else {}
+if "v3.4.0" not in epochs:
+    epochs["v3.4.0"] = {
+        "started": ts,
+        "baseline_sek": round(mtm, 2),
+        "closed_trade_index": len(state.get("closed_trades") or []),
+        "note": "First epoch with risk sizing, fees, slippage and EMA/RSI/ADX filters",
+    }
+epoch = epochs["v3.4.0"]
+epoch_base = float(epoch.get("baseline_sek") or mtm)
+state["strategy_epochs"] = epochs
+state["epoch_pnl_sek"] = round(mtm - epoch_base, 2)
+state["epoch_pnl_pct"] = round(100.0 * (mtm / epoch_base - 1), 3) if epoch_base else 0
 hw = float(state.get("high_water_sek") or start)
 if mtm > hw:
     hw = mtm
@@ -1407,8 +1525,8 @@ state["struct80"] = out["struct_min"]
 state["candidate_book"] = book
 state["expectancy_log"] = exp
 state["ohlc_cache"] = new_cache
-state["engine"] = "v3.3.4-displaylock"
-state["version"] = "3.3.4"
+state["engine"] = "v3.4.0-riskcost-ta"
+state["version"] = "3.4.0"
 state["alt_flow"] = alt_flow
 state["alt_flow_mem"] = alt_flow_mem
 state["near_a"] = out.get("near_a") or []
@@ -1418,6 +1536,22 @@ state["scan80_summary"] = {
     "unconfirmed": [x["s"] for x in unconf], "hl_cont": [x["s"] for x in hl_ok],
     "cands_1h": out["cands_1h"], "isolated": isolated, "ext_ban": out["ext_ban"],
     "near_a": [x["s"] for x in near_a],
+}
+previous_ts = prev.get("updated") if isinstance(prev, dict) else None
+interval_minutes = None
+try:
+    interval_minutes = round((datetime.datetime.fromisoformat(ts) - datetime.datetime.fromisoformat(previous_ts)).total_seconds() / 60.0, 2)
+except Exception:
+    pass
+state["health"] = {
+    "status": "ok" if len(struct) == 80 and not fail4 and not fail1 and not flag else "degraded",
+    "checked": ts,
+    "interval_minutes": interval_minutes,
+    "universe_4h": len(struct),
+    "failed_4h": fail4,
+    "failed_1h": fail1,
+    "cross_exchange_price_flag": flag,
+    "target_interval_minutes": 30,
 }
 snaps = state.get("snapshots") or []
 snaps.append({
@@ -1607,7 +1741,7 @@ state["display_lock"] = {
     "mtm_vikt_not_buy": True,
     "fills_are_legs": True,
     "add_only_via_ADD": True,
-    "engine": "v3.3.4-displaylock",
+    "engine": "v3.4.0-riskcost-ta",
 }
 scan_action, held_now = reconcile_action(state)
 fills_now = [f for f in (state.get("fills_applied") or []) if f.get("fill")]
@@ -1637,8 +1771,8 @@ if prev_act != hist_row["action"] or not hist or (hist[-1].get("held") != held_n
 else:
     hist[-1] = hist_row
 state["history"] = hist[-80:]
-state["engine"] = "v3.3.4-displaylock"
-state["version"] = "3.3.4"
+state["engine"] = "v3.4.0-riskcost-ta"
+state["version"] = "3.4.0"
 state["scan_live_ts"] = ts
 state["sanity"] = {"raw": sanity, "flag": flag, "median": med}
 state["improving"] = out["improving"]
