@@ -117,6 +117,7 @@ def enrich_command(command, state):
 
 def main():
     before = read_json(STATE) if STATE.exists() else {}
+    previous_cycle = before.get("cycle_completed_at") or before.get("updated")
     before_positions = {p.get("s"): deepcopy(p) for p in before.get("positions", []) if p.get("s")}
     state, out = run_scan()
     command = enrich_command(choose_command(state, out), state)
@@ -154,6 +155,18 @@ def main():
             "positions": state.get("positions") or [],
         },
     }
+    cycle_completed = datetime.now(timezone.utc).isoformat()
+    health = state.get("health") if isinstance(state.get("health"), dict) else {}
+    try:
+        prior = datetime.fromisoformat(previous_cycle)
+        current = datetime.fromisoformat(cycle_completed)
+        health["interval_minutes"] = round((current - prior).total_seconds() / 60.0, 2)
+    except (TypeError, ValueError):
+        health["interval_minutes"] = None
+    health["cycle_completed"] = cycle_completed
+    state["health"] = health
+    state["cycle_completed_at"] = cycle_completed
+    write_json(STATE, state)
     write_json(SIGNAL, signal)
     print(json.dumps(signal, ensure_ascii=False))
 

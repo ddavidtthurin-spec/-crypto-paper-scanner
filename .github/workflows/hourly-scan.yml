@@ -17,7 +17,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: hourly-paper-scan
+  group: paper-scan
   cancel-in-progress: false
 
 jobs:
@@ -78,5 +78,5 @@ jobs:
           git config user.email "paper-scan-bot@users.noreply.github.com"
           git add crypto_daytrade_state.json scan_live.json signal.json
           git diff --cached --quiet && exit 0
-          git commit -m "chore: hourly paper scan"
+          git commit -m "chore: paper scan"
           git push
