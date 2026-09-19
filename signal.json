@@ -1,21 +1,7 @@
 {
-  "updated": "2026-09-19T20:01:54.831325+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "HBAR",
-    "frac": 1.0,
-    "exit": 0.08228,
-    "anledning": "struktur_dod 1H_FAILED_HOLD q4.0",
-    "paper_price": 0.08217889,
-    "size_sek": 4785.91,
-    "size_pct": 47.86,
-    "stop": 0.079574,
-    "tp1": 0.086015,
-    "tp2": 0.089198,
-    "signal_price": 0.08222,
-    "fee_sek": 4.8098
-  },
+  "updated": "2026-09-19T20:04:38.488736+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10654.478329914833,
