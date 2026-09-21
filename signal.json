@@ -1,49 +1,25 @@
 {
-  "updated": "2026-09-21T05:30:13.967541+00:00",
-  "status": "no_action",
-  "command": null,
+  "updated": "2026-09-21T11:06:59.883654+00:00",
+  "status": "action",
+  "command": {
+    "op": "SÄLJ",
+    "s": "CFX",
+    "frac": 1.0,
+    "exit": 0.05445,
+    "anledning": "struktur_dod EXT_BAN q1.0",
+    "paper_price": 0.054422775,
+    "size_sek": 3545.15,
+    "size_pct": 33.33,
+    "stop": 0.052303,
+    "tp1": 0.056339,
+    "tp2": 0.05873,
+    "signal_price": 0.05445,
+    "fee_sek": 3.6267
+  },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 7091.368022518274,
-    "total_value_sek": 10613.88,
-    "positions": [
-      {
-        "s": "CFX",
-        "entry": 0.053146559999999995,
-        "signal_price": 0.05312,
-        "stop": 0.051157,
-        "tp1": 0.056339,
-        "tp2": 0.05873,
-        "size_pct": 33.33,
-        "size_pct_locked": 33.33,
-        "size_pct_cmd": 33.33,
-        "mtm_weight_pct": 33.19,
-        "qty": 66638.52545881413,
-        "alloc_sek": 3545.15,
-        "opened": "2026-09-21T02:30:59.499253+02:00",
-        "mark": 0.05286,
-        "fills": 1,
-        "entry_fee_sek": 3.5416,
-        "entry_slippage_pct": 0.05,
-        "legs": [
-          {
-            "t": "2026-09-21T02:30:59.499253+02:00",
-            "op": "KÖP",
-            "signal_px": 0.05312,
-            "px": 0.053146559999999995,
-            "qty": 66638.52545881413,
-            "alloc_sek": 3545.15,
-            "fee_sek": 3.5416,
-            "size_pct": 33.33
-          }
-        ],
-        "value_sek": 3522.51,
-        "display": "CFX fills=1 size_lock 33.33% @ 0.053146559999999995 mtm_vikt 33.19% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.053146559999999995,
-        "r_now": -0.144,
-        "r_mfe": 0.0,
-        "hours_held": 4.99
-      }
-    ]
+    "cash_sek": 10714.39484641771,
+    "total_value_sek": 10714.39,
+    "positions": []
   }
 }
