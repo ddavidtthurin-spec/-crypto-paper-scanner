@@ -1,11 +1,62 @@
 {
-  "updated": "2026-09-20T22:26:17.996610+00:00",
-  "status": "no_action",
-  "command": null,
+  "updated": "2026-09-21T00:30:59.937311+00:00",
+  "status": "action",
+  "command": {
+    "op": "KÖP",
+    "s": "CFX",
+    "size_pct": 33.33,
+    "entry": 0.05315,
+    "stop": 0.051157,
+    "tp1": 0.056339,
+    "tp2": 0.05873,
+    "anledning": "RANGE_BREAK_HOLD q=11",
+    "size_sek": 3545.15,
+    "paper_price": 0.053146559999999995,
+    "signal_price": 0.05312,
+    "fee_sek": 3.5416
+  },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 10636.518022518274,
-    "total_value_sek": 10636.52,
-    "positions": []
+    "cash_sek": 7091.368022518274,
+    "total_value_sek": 10631.21,
+    "positions": [
+      {
+        "s": "CFX",
+        "entry": 0.053146559999999995,
+        "signal_price": 0.05312,
+        "stop": 0.051157,
+        "tp1": 0.056339,
+        "tp2": 0.05873,
+        "size_pct": 33.33,
+        "size_pct_locked": 33.33,
+        "size_pct_cmd": 33.33,
+        "mtm_weight_pct": 33.3,
+        "qty": 66638.52545881413,
+        "alloc_sek": 3545.15,
+        "opened": "2026-09-21T02:30:59.499253+02:00",
+        "mark": 0.05312,
+        "fills": 1,
+        "entry_fee_sek": 3.5416,
+        "entry_slippage_pct": 0.05,
+        "legs": [
+          {
+            "t": "2026-09-21T02:30:59.499253+02:00",
+            "op": "KÖP",
+            "signal_px": 0.05312,
+            "px": 0.053146559999999995,
+            "qty": 66638.52545881413,
+            "alloc_sek": 3545.15,
+            "fee_sek": 3.5416,
+            "size_pct": 33.33
+          }
+        ],
+        "value_sek": 3539.84,
+        "display": "CFX fills=1 size_lock 33.33% @ 0.053146559999999995 mtm_vikt 33.3% (mtm_vikt är INTE extra köp)",
+        "mfe_px": 0.053146559999999995,
+        "r_now": -0.013,
+        "r_mfe": 0.0,
+        "hours_held": 0.0
+      }
+    ]
   }
 }
