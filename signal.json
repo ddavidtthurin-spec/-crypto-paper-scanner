@@ -1,21 +1,7 @@
 {
-  "updated": "2026-09-21T11:06:59.883654+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "CFX",
-    "frac": 1.0,
-    "exit": 0.05445,
-    "anledning": "struktur_dod EXT_BAN q1.0",
-    "paper_price": 0.054422775,
-    "size_sek": 3545.15,
-    "size_pct": 33.33,
-    "stop": 0.052303,
-    "tp1": 0.056339,
-    "tp2": 0.05873,
-    "signal_price": 0.05445,
-    "fee_sek": 3.6267
-  },
+  "updated": "2026-09-21T17:02:51.778594+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10714.39484641771,
