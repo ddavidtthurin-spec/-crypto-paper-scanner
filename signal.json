@@ -1,21 +1,7 @@
 {
-  "updated": "2026-09-23T19:04:00.356930+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "DASH",
-    "frac": 1.0,
-    "exit": 58.39,
-    "anledning": "stop_hit",
-    "paper_price": 58.28084500000001,
-    "size_sek": 2387.17,
-    "size_pct": 22.28,
-    "stop": 59.334,
-    "tp1": 68.5016,
-    "tp2": 72.7328,
-    "signal_price": 58.31,
-    "fee_sek": 2.21
-  },
+  "updated": "2026-09-23T22:17:02.941718+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10534.970960057162,
