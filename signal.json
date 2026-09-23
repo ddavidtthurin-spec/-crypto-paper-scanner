@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-23T10:01:14.434307+00:00",
+  "updated": "2026-09-23T15:00:45.526205+00:00",
   "status": "no_action",
   "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 8327.22484641771,
-    "total_value_sek": 10705.89,
+    "total_value_sek": 10625.5,
     "positions": [
       {
         "s": "DASH",
@@ -17,11 +17,11 @@
         "size_pct": 22.28,
         "size_pct_locked": 22.28,
         "size_pct_cmd": 22.28,
-        "mtm_weight_pct": 22.22,
+        "mtm_weight_pct": 21.63,
         "qty": 37.91908078390355,
         "alloc_sek": 2387.17,
         "opened": "2026-09-23T07:11:53.920645+02:00",
-        "mark": 62.73,
+        "mark": 60.61,
         "fills": 1,
         "entry_fee_sek": 2.3848,
         "entry_slippage_pct": 0.05,
@@ -37,12 +37,12 @@
             "size_pct": 22.28
           }
         ],
-        "value_sek": 2378.66,
-        "display": "DASH fills=1 size_lock 22.28% @ 62.89142999999999 mtm_vikt 22.22% (mtm_vikt är INTE extra köp)",
+        "value_sek": 2298.28,
+        "display": "DASH fills=1 size_lock 22.28% @ 62.89142999999999 mtm_vikt 21.63% (mtm_vikt är INTE extra köp)",
         "mfe_px": 62.89142999999999,
-        "r_now": -0.045,
+        "r_now": -0.641,
         "r_mfe": 0.0,
-        "hours_held": 4.82
+        "hours_held": 9.81
       }
     ]
   }
