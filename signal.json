@@ -1,56 +1,25 @@
 {
-  "updated": "2026-09-27T10:45:36.516967+00:00",
+  "updated": "2026-09-27T15:40:08.330695+00:00",
   "status": "action",
-  "command": null,
-  "stop_moves": [
-    {
-      "s": "EIGEN",
-      "from": 0.25572,
-      "to": 0.26492,
-      "mark": 0.2807
-    }
-  ],
+  "command": {
+    "op": "SÄLJ",
+    "s": "EIGEN",
+    "frac": 1.0,
+    "exit": 0.27,
+    "anledning": "struktur_dod FAILED_BREAK_TRAP q3.0",
+    "paper_price": 0.26956515000000003,
+    "size_sek": 2159.65,
+    "size_pct": 20.66,
+    "stop": 0.26492,
+    "tp1": 0.298568,
+    "tp2": 0.318344,
+    "signal_price": 0.2697,
+    "fee_sek": 2.1355
+  },
+  "stop_moves": [],
   "portfolio": {
-    "cash_sek": 8290.054387410248,
-    "total_value_sek": 10513.81,
-    "positions": [
-      {
-        "s": "EIGEN",
-        "entry": 0.27233609999999997,
-        "signal_price": 0.2722,
-        "stop": 0.26492,
-        "tp1": 0.298568,
-        "tp2": 0.318344,
-        "size_pct": 20.66,
-        "size_pct_locked": 20.66,
-        "size_pct_cmd": 20.66,
-        "mtm_weight_pct": 21.15,
-        "qty": 7922.168627267953,
-        "alloc_sek": 2159.65,
-        "opened": "2026-09-27T01:55:23.367358+02:00",
-        "mark": 0.2807,
-        "fills": 1,
-        "entry_fee_sek": 2.1575,
-        "entry_slippage_pct": 0.05,
-        "legs": [
-          {
-            "t": "2026-09-27T01:55:23.367358+02:00",
-            "op": "KÖP",
-            "signal_px": 0.2722,
-            "px": 0.27233609999999997,
-            "qty": 7922.168627267953,
-            "alloc_sek": 2159.65,
-            "fee_sek": 2.1575,
-            "size_pct": 20.66
-          }
-        ],
-        "value_sek": 2223.75,
-        "display": "EIGEN fills=1 size_lock 20.66% @ 0.27233609999999997 mtm_vikt 21.15% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.2807,
-        "r_now": 0.503,
-        "r_mfe": 0.503,
-        "hours_held": 10.84
-      }
-    ]
+    "cash_sek": 10423.459421170694,
+    "total_value_sek": 10423.46,
+    "positions": []
   }
 }
