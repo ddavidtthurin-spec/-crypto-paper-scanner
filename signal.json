@@ -1,62 +1,25 @@
 {
-  "updated": "2026-09-27T22:33:46.143626+00:00",
+  "updated": "2026-09-28T01:12:10.027649+00:00",
   "status": "action",
   "command": {
-    "op": "KÖP",
+    "op": "SÄLJ",
     "s": "GRASS",
+    "frac": 1.0,
+    "exit": 0.6549,
+    "anledning": "struktur_dod ISOLATED_PUMP q2.0",
+    "paper_price": 0.65377295,
+    "size_sek": 2171.21,
     "size_pct": 20.83,
-    "entry": 0.6403,
     "stop": 0.601882,
     "tp1": 0.701769,
     "tp2": 0.74787,
-    "anledning": "RANGE_BREAK_HOLD q=11",
-    "size_sek": 2171.21,
-    "paper_price": 0.6405200999999999,
-    "signal_price": 0.6402,
-    "fee_sek": 2.169
+    "signal_price": 0.6541,
+    "fee_sek": 2.2139
   },
   "stop_moves": [],
   "portfolio": {
-    "cash_sek": 8252.249421170694,
-    "total_value_sek": 10420.21,
-    "positions": [
-      {
-        "s": "GRASS",
-        "entry": 0.6405200999999999,
-        "signal_price": 0.6402,
-        "stop": 0.601882,
-        "tp1": 0.701769,
-        "tp2": 0.74787,
-        "size_pct": 20.83,
-        "size_pct_locked": 20.83,
-        "size_pct_cmd": 20.83,
-        "mtm_weight_pct": 20.81,
-        "qty": 3386.3745400666735,
-        "alloc_sek": 2171.21,
-        "opened": "2026-09-28T00:33:45.809010+02:00",
-        "mark": 0.6402,
-        "fills": 1,
-        "entry_fee_sek": 2.169,
-        "entry_slippage_pct": 0.05,
-        "legs": [
-          {
-            "t": "2026-09-28T00:33:45.809010+02:00",
-            "op": "KÖP",
-            "signal_px": 0.6402,
-            "px": 0.6405200999999999,
-            "qty": 3386.3745400666735,
-            "alloc_sek": 2171.21,
-            "fee_sek": 2.169,
-            "size_pct": 20.83
-          }
-        ],
-        "value_sek": 2167.96,
-        "display": "GRASS fills=1 size_lock 20.83% @ 0.6405200999999999 mtm_vikt 20.81% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 0.6405200999999999,
-        "r_now": -0.008,
-        "r_mfe": 0.0,
-        "hours_held": 0.0
-      }
-    ]
+    "cash_sek": 10463.955573962112,
+    "total_value_sek": 10463.96,
+    "positions": []
   }
 }
