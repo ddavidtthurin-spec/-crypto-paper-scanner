@@ -1,21 +1,7 @@
 {
-  "updated": "2026-09-28T01:12:10.027649+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "GRASS",
-    "frac": 1.0,
-    "exit": 0.6549,
-    "anledning": "struktur_dod ISOLATED_PUMP q2.0",
-    "paper_price": 0.65377295,
-    "size_sek": 2171.21,
-    "size_pct": 20.83,
-    "stop": 0.601882,
-    "tp1": 0.701769,
-    "tp2": 0.74787,
-    "signal_price": 0.6541,
-    "fee_sek": 2.2139
-  },
+  "updated": "2026-09-28T06:57:09.372540+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10463.955573962112,
