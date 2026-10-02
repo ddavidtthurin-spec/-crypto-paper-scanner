@@ -1,24 +1,11 @@
 {
-  "updated": "2026-10-02T15:48:28.804095+00:00",
-  "status": "action",
-  "command": {
-    "op": "KÖP",
-    "s": "AXS",
-    "size_pct": 30.19,
-    "entry": 1.2201,
-    "stop": 1.1695,
-    "tp1": 1.301,
-    "tp2": 1.3617,
-    "anledning": "RANGE_BREAK_HOLD q=10",
-    "size_sek": 3159.07,
-    "paper_price": 1.2196095,
-    "signal_price": 1.219,
-    "fee_sek": 3.1559
-  },
+  "updated": "2026-10-02T20:43:44.687125+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 7304.885573962112,
-    "total_value_sek": 10459.22,
+    "total_value_sek": 10370.47,
     "positions": [
       {
         "s": "AXS",
@@ -30,11 +17,11 @@
         "size_pct": 30.19,
         "size_pct_locked": 30.19,
         "size_pct_cmd": 30.19,
-        "mtm_weight_pct": 30.16,
+        "mtm_weight_pct": 29.56,
         "qty": 2587.6430824080057,
         "alloc_sek": 3159.07,
         "opened": "2026-10-02T17:48:28.447971+02:00",
-        "mark": 1.219,
+        "mark": 1.1847,
         "fills": 1,
         "entry_fee_sek": 3.1559,
         "entry_slippage_pct": 0.05,
@@ -50,12 +37,12 @@
             "size_pct": 30.19
           }
         ],
-        "value_sek": 3154.34,
-        "display": "AXS fills=1 size_lock 30.19% @ 1.2196095 mtm_vikt 30.16% (mtm_vikt är INTE extra köp)",
+        "value_sek": 3065.58,
+        "display": "AXS fills=1 size_lock 30.19% @ 1.2196095 mtm_vikt 29.56% (mtm_vikt är INTE extra köp)",
         "mfe_px": 1.2196095,
-        "r_now": -0.012,
+        "r_now": -0.697,
         "r_mfe": 0.0,
-        "hours_held": 0.0
+        "hours_held": 4.92
       }
     ]
   }
