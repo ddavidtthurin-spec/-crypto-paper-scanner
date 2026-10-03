@@ -1,21 +1,7 @@
 {
-  "updated": "2026-10-03T05:46:22.362243+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "AXS",
-    "frac": 1.0,
-    "exit": 1.2688,
-    "anledning": "struktur_dod FAILED_BREAK_TRAP q5.0",
-    "paper_price": 1.26826555,
-    "size_sek": 3159.07,
-    "size_pct": 30.19,
-    "stop": 1.2003,
-    "tp1": 1.301,
-    "tp2": 1.3617,
-    "signal_price": 1.2689,
-    "fee_sek": 3.2818
-  },
+  "updated": "2026-10-03T11:37:57.895502+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10583.422332498883,
