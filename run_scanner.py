@@ -8,25 +8,15 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 
+from paper_execution import fnum
+from state_io import read_json, write_json
+
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "crypto_daytrade_state.json"
 OUT = ROOT / "scan_live.json"
 SIGNAL = ROOT / "signal.json"
 SCANNER = ROOT / "scan_v33.py"
 
-
-def read_json(path):
-    with path.open(encoding="utf-8") as fh:
-        return json.load(fh)
-
-
-def write_json(path, value):
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with tmp.open("w", encoding="utf-8") as fh:
-        json.dump(value, fh, indent=2, ensure_ascii=False)
-        fh.flush()
-        os.fsync(fh.fileno())
-    os.replace(tmp, path)
 
 
 def run_scan():
@@ -38,6 +28,10 @@ def run_scan():
     if proc.returncode != 0 or "DONE" not in proc.stdout:
         raise RuntimeError((proc.stderr or proc.stdout or "scanner failed")[-2000:])
     state, out = read_json(STATE), read_json(OUT)
+    if not isinstance(state, dict) or not isinstance(out, dict):
+        raise RuntimeError("scanner outputs must be JSON objects")
+    if not state.get("updated") or state["updated"] != out.get("ts"):
+        raise RuntimeError("state and scan output belong to different snapshots")
     required = ("struct80", "candidate_book", "expectancy_log")
     missing = [key for key in required if key not in state]
     if missing:
@@ -48,9 +42,14 @@ def run_scan():
 def choose_command(state, out):
     exit_now = state.get("exit_now") or {}
     if exit_now.get("op") == "SÄLJ" and exit_now.get("s"):
-        half = str(exit_now.get("frac") or "").upper() in ("HÄLFTEN", "HALFTEN")
+        raw_fraction = exit_now.get("frac")
+        label = str(raw_fraction).strip().upper()
+        fraction = (1.0 if raw_fraction is None or label == "HELT" else
+                    0.5 if label in ("HÄLFTEN", "HALFTEN") else fnum(raw_fraction))
+        if fraction is None or not 0 < fraction <= 1:
+            return None
         return {
-            "op": "SÄLJ", "s": exit_now["s"], "frac": 0.5 if half else 1.0,
+            "op": "SÄLJ", "s": exit_now["s"], "frac": fraction,
             "exit": exit_now.get("px"), "anledning": exit_now.get("reason") or "exit_now",
         }
     rotation = state.get("rotation") or {}
@@ -59,29 +58,39 @@ def choose_command(state, out):
             "op": "SÄLJ", "s": rotation["weakest"], "frac": 1.0,
             "anledning": rotation.get("reason") or "rotation",
         }
-    if int(rotation.get("slots_free") or 0) <= 0:
+    if (fnum(rotation.get("slots_free")) or 0) <= 0:
         return None
     if state.get("regime") == "RISK_OFF" or state.get("flow") == "RISK_OFF":
         return None
     held = {p.get("s") for p in (state.get("positions") or []) if p.get("s")}
-    setups = [
-        row for row in (out.get("a_setups") or [])
-        if row.get("s") not in held
-        if row.get("why") == "RANGE_BREAK_HOLD"
-        and isinstance(row.get("plan"), dict)
-        and all(row["plan"].get(k) is not None for k in ("entry", "stop", "tp1", "tp2"))
-    ]
+    setups = []
+    for row in out.get("a_setups") or []:
+        if not isinstance(row, dict) or not isinstance(row.get("s"), str) or not row["s"]:
+            continue
+        if row["s"] in held or row.get("why") != "RANGE_BREAK_HOLD":
+            continue
+        plan = row.get("plan")
+        if not isinstance(plan, dict):
+            continue
+        levels = [fnum(plan.get(key)) for key in ("stop", "entry", "tp1", "tp2")]
+        if any(value is None or value <= 0 for value in levels):
+            continue
+        if not levels[0] < levels[1] < levels[2] <= levels[3]:
+            continue
+        risk_pct = fnum(plan.get("risk_pct"))
+        if risk_pct is None or risk_pct <= 0:
+            continue
+        size_pct = round(min(45.0, 125.0 / risk_pct), 2)
+        if size_pct < 15.0:
+            continue
+        setups.append((row, size_pct))
     if not setups:
         return None
-    setups.sort(key=lambda row: (row.get("q") or 0, row.get("volr4") or 0), reverse=True)
-    best, plan = setups[0], setups[0]["plan"]
-    risk_pct = float(plan.get("risk_pct") or 0)
-    if risk_pct <= 0:
-        return None
-    # Risk 1.25% of equity per trade, capped at 45% gross exposure.
-    size_pct = round(min(45.0, 125.0 / risk_pct), 2)
-    if size_pct < 15.0:
-        return None
+    setups.sort(key=lambda item: (fnum(item[0].get("q")) or 0,
+                                 fnum(item[0].get("volr4")) or 0), reverse=True)
+    best, size_pct = setups[0]
+    plan = best["plan"]
+    # Keep the existing 1.25% signal-risk budget and 45% exposure cap.
     return {
         "op": "KÖP", "s": best["s"], "size_pct": size_pct,
         "entry": plan["entry"], "stop": plan["stop"],
