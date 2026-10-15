@@ -8,7 +8,7 @@ on:
       - "scan_live.json"
       - "signal.json"
   schedule:
-    # Off the top of the hour to reduce GitHub's documented peak-time delays.
+    # GitHub scheduling is best-effort; retain the existing cadence.
     - cron: "13,43 * * * *"
   workflow_dispatch:
 
@@ -22,11 +22,17 @@ concurrency:
 
 jobs:
   scan:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The decision runner may make two scans, each bounded at 12 minutes.
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Queued/re-run jobs must not start from an obsolete state snapshot.
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -39,44 +45,27 @@ jobs:
         run: python run_scanner.py
 
       - name: Validate outputs
+        run: python validate_outputs.py
+
+      - name: Save validated state before sending notifications
         run: |
-          python - <<'PY'
-          import json
-
-          for name in (
-              "crypto_daytrade_state.json",
-              "scan_live.json",
-              "signal.json",
-          ):
-              with open(name, encoding="utf-8") as fh:
-                  json.load(fh)
-
-          with open("crypto_daytrade_state.json", encoding="utf-8") as fh:
-              state = json.load(fh)
-
-          assert all(
-              key in state
-              for key in (
-                  "struct80",
-                  "candidate_book",
-                  "expectancy_log",
-              )
-          )
-          assert len(state["struct80"]) == 80
-          assert state.get("health", {}).get("status") == "ok"
-          assert state.get("version") == "3.4.0"
-          PY
+          git config user.name "paper-scan-bot"
+          git config user.email "paper-scan-bot@users.noreply.github.com"
+          python save_state.py
 
       - name: Notify David of manual action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python github_notify.py
 
-      - name: Save validated state
-        run: |
-          git config user.name "paper-scan-bot"
-          git config user.email "paper-scan-bot@users.noreply.github.com"
-          git add crypto_daytrade_state.json scan_live.json signal.json
-          git diff --cached --quiet && exit 0
-          git commit -m "chore: paper scan"
-          git push
+      - name: Preserve recovery outputs on failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-scan-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            crypto_daytrade_state.json
+            scan_live.json
+            signal.json
+          retention-days: 7
+          if-no-files-found: warn
