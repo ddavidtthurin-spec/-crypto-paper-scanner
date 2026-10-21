@@ -1,56 +1,25 @@
 {
-  "updated": "2026-10-21T20:38:18.361637+00:00",
+  "updated": "2026-10-21T23:38:48.417185+00:00",
   "status": "action",
-  "command": null,
-  "stop_moves": [
-    {
-      "s": "BCH",
-      "from": 279.88,
-      "to": 280.06,
-      "mark": 287.8
-    }
-  ],
+  "command": {
+    "op": "SÄLJ",
+    "s": "BCH",
+    "frac": 1.0,
+    "exit": 286.4,
+    "anledning": "time_decay 11.9h r-0.10 HL_NO_PULLBACK",
+    "paper_price": 286.0569,
+    "size_sek": 4673.16,
+    "size_pct": 45.0,
+    "stop": 280.06,
+    "tp1": 298.73,
+    "tp2": 307.52,
+    "signal_price": 286.2,
+    "fee_sek": 4.6508
+  },
+  "stop_moves": [],
   "portfolio": {
-    "cash_sek": 5711.62650816793,
-    "total_value_sek": 10390.79,
-    "positions": [
-      {
-        "s": "BCH",
-        "entry": 287.14349999999996,
-        "signal_price": 287.0,
-        "stop": 280.06,
-        "tp1": 298.73,
-        "tp2": 307.52,
-        "size_pct": 45.0,
-        "size_pct_locked": 45.0,
-        "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 45.03,
-        "qty": 16.25839173964067,
-        "alloc_sek": 4673.16,
-        "opened": "2026-10-21T13:47:02.070918+02:00",
-        "mark": 287.8,
-        "fills": 1,
-        "entry_fee_sek": 4.6685,
-        "entry_slippage_pct": 0.05,
-        "legs": [
-          {
-            "t": "2026-10-21T13:47:02.070918+02:00",
-            "op": "KÖP",
-            "signal_px": 287.0,
-            "px": 287.14349999999996,
-            "qty": 16.25839173964067,
-            "alloc_sek": 4673.16,
-            "fee_sek": 4.6685,
-            "size_pct": 45.0
-          }
-        ],
-        "value_sek": 4679.17,
-        "display": "BCH fills=1 size_lock 45.0% @ 287.14349999999996 mtm_vikt 45.03% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 287.8,
-        "r_now": 0.09,
-        "r_mfe": 0.09,
-        "hours_held": 8.85
-      }
-    ]
+    "cash_sek": 10357.80082305512,
+    "total_value_sek": 10357.8,
+    "positions": []
   }
 }
