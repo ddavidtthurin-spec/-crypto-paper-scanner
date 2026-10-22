@@ -1,21 +1,7 @@
 {
-  "updated": "2026-10-21T23:38:48.417185+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "BCH",
-    "frac": 1.0,
-    "exit": 286.4,
-    "anledning": "time_decay 11.9h r-0.10 HL_NO_PULLBACK",
-    "paper_price": 286.0569,
-    "size_sek": 4673.16,
-    "size_pct": 45.0,
-    "stop": 280.06,
-    "tp1": 298.73,
-    "tp2": 307.52,
-    "signal_price": 286.2,
-    "fee_sek": 4.6508
-  },
+  "updated": "2026-10-22T01:52:23.850500+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10357.80082305512,
