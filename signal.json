@@ -1,21 +1,7 @@
 {
-  "updated": "2026-10-28T17:25:10.332258+00:00",
-  "status": "action",
-  "command": {
-    "op": "SÄLJ",
-    "s": "BNB",
-    "frac": 1.0,
-    "exit": 747.67,
-    "anledning": "stop_hit",
-    "paper_price": 747.4261,
-    "size_sek": 4661.01,
-    "size_pct": 45.0,
-    "stop": 753.99,
-    "tp1": 764.8,
-    "tp2": 778.04,
-    "signal_price": 747.8,
-    "fee_sek": 4.6557
-  },
+  "updated": "2026-10-28T21:54:18.899537+00:00",
+  "status": "no_action",
+  "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 10347.881547342673,
