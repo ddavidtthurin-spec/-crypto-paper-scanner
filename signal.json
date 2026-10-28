@@ -1,56 +1,25 @@
 {
-  "updated": "2026-10-28T11:39:35.485512+00:00",
+  "updated": "2026-10-28T17:25:10.332258+00:00",
   "status": "action",
-  "command": null,
-  "stop_moves": [
-    {
-      "s": "BNB",
-      "from": 736.12,
-      "to": 753.99,
-      "mark": 761.9
-    }
-  ],
+  "command": {
+    "op": "SÄLJ",
+    "s": "BNB",
+    "frac": 1.0,
+    "exit": 747.67,
+    "anledning": "stop_hit",
+    "paper_price": 747.4261,
+    "size_sek": 4661.01,
+    "size_pct": 45.0,
+    "stop": 753.99,
+    "tp1": 764.8,
+    "tp2": 778.04,
+    "signal_price": 747.8,
+    "fee_sek": 4.6557
+  },
+  "stop_moves": [],
   "portfolio": {
-    "cash_sek": 5696.79082305512,
-    "total_value_sek": 10442.7,
-    "positions": [
-      {
-        "s": "BNB",
-        "entry": 747.5235749999999,
-        "signal_price": 747.15,
-        "stop": 753.99,
-        "tp1": 764.8,
-        "tp2": 778.04,
-        "size_pct": 45.0,
-        "size_pct_locked": 45.0,
-        "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 45.45,
-        "qty": 6.229039192982841,
-        "alloc_sek": 4661.01,
-        "opened": "2026-10-27T21:41:49.077078+01:00",
-        "mark": 761.9,
-        "fills": 1,
-        "entry_fee_sek": 4.6564,
-        "entry_slippage_pct": 0.05,
-        "legs": [
-          {
-            "t": "2026-10-27T21:41:49.077078+01:00",
-            "op": "KÖP",
-            "signal_px": 747.15,
-            "px": 747.5235749999999,
-            "qty": 6.229039192982841,
-            "alloc_sek": 4661.01,
-            "fee_sek": 4.6564,
-            "size_pct": 45.0
-          }
-        ],
-        "value_sek": 4745.9,
-        "display": "BNB fills=1 size_lock 45.0% @ 747.5235749999999 mtm_vikt 45.45% (mtm_vikt är INTE extra köp)",
-        "mfe_px": 761.9,
-        "r_now": 1.261,
-        "r_mfe": 1.261,
-        "hours_held": 14.96
-      }
-    ]
+    "cash_sek": 10347.881547342673,
+    "total_value_sek": 10347.88,
+    "positions": []
   }
 }
