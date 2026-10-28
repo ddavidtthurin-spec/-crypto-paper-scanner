@@ -1,11 +1,11 @@
 {
-  "updated": "2026-10-28T00:03:27.945476+00:00",
+  "updated": "2026-10-28T05:40:11.633230+00:00",
   "status": "no_action",
   "command": null,
   "stop_moves": [],
   "portfolio": {
     "cash_sek": 5696.79082305512,
-    "total_value_sek": 10331.88,
+    "total_value_sek": 10338.86,
     "positions": [
       {
         "s": "BNB",
@@ -17,11 +17,11 @@
         "size_pct": 45.0,
         "size_pct_locked": 45.0,
         "size_pct_cmd": 45.0,
-        "mtm_weight_pct": 44.86,
+        "mtm_weight_pct": 44.9,
         "qty": 6.229039192982841,
         "alloc_sek": 4661.01,
         "opened": "2026-10-27T21:41:49.077078+01:00",
-        "mark": 744.11,
+        "mark": 745.23,
         "fills": 1,
         "entry_fee_sek": 4.6564,
         "entry_slippage_pct": 0.05,
@@ -37,12 +37,12 @@
             "size_pct": 45.0
           }
         ],
-        "value_sek": 4635.09,
-        "display": "BNB fills=1 size_lock 45.0% @ 747.5235749999999 mtm_vikt 44.86% (mtm_vikt är INTE extra köp)",
+        "value_sek": 4642.07,
+        "display": "BNB fills=1 size_lock 45.0% @ 747.5235749999999 mtm_vikt 44.9% (mtm_vikt är INTE extra köp)",
         "mfe_px": 747.5235749999999,
-        "r_now": -0.299,
+        "r_now": -0.201,
         "r_mfe": 0.0,
-        "hours_held": 3.36
+        "hours_held": 8.97
       }
     ]
   }
